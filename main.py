@@ -30,3 +30,6 @@ def emotion_pred(input_parameters):
 
   # pred_class=index_to_class[np.argmax(p).astype('uint8')]
   return input_data
+
+if __name__=='main':
+  app.run(debug=True)
