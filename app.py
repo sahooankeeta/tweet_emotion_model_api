@@ -2,11 +2,19 @@ import numpy as np
 from flask import Flask,request, url_for, redirect, jsonify
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import pickle
-import json
 
-app = Flask(__name__)
+app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class_to_index={'fear': 0, 'joy': 1, 'surprise': 2, 'sadness': 3, 'anger': 4, 'love': 5}
@@ -29,5 +37,3 @@ def emotion_pred():
   # pred_class=index_to_class[np.argmax(p).astype('uint8')]
   return input_data
 
-if __name__=='main':
-  app.run()
