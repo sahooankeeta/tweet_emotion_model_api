@@ -14,6 +14,10 @@ index_to_class=dict((v,k) for k,v in class_to_index.items())
 
 tweet_emotion_model=pickle.load(open('tweet_emotion_model.sav','rb'))
 
+@app.route("/")
+def home():
+  return jsonify("hi there")
+
 @app.route('/emotion_prediction',methods=['POST'])
 def emotion_pred():
   print(request.form)
