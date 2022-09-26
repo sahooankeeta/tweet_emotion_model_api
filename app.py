@@ -16,7 +16,7 @@ tweet_emotion_model=pickle.load(open('tweet_emotion_model.sav','rb'))
 
 @app.route("/")
 def home():
-  return jsonify("hi there")
+  return "hi there"
 
 @app.route('/emotion_prediction',methods=['POST'])
 def emotion_pred():
@@ -27,7 +27,7 @@ def emotion_pred():
   # p=tweet_emotion_model.predict(np.expand_dims(tweet,axis=0))[0]
 
   # pred_class=index_to_class[np.argmax(p).astype('uint8')]
-  return jsonify(input_data)
+  return input_data
 
 if __name__=='main':
   app.run()
