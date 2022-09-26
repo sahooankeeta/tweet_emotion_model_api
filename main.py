@@ -30,4 +30,4 @@ def emotion_pred():
   return jsonify(input_data)
 
 if __name__=='main':
-  app.run(debug=True)
+  app.run()
