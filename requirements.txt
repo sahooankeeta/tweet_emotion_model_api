@@ -1,5 +1,5 @@
 pickle-mixin
-fastapi
 numpy
-uvicorn
 requests
+flask
+gunicorn

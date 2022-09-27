@@ -1,4 +1,6 @@
+
 import requests
+from flask import Flask
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
@@ -6,17 +8,9 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
-app = FastAPI()
+app = Flask(__name__)
 
-origins = ["*"]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 model=pickle.load(open('tweet_emotion_model','rb'))
 tokenizer=Tokenizer(num_words=10000,oov_token='<UNK>')
 maxlen=60
@@ -30,8 +24,11 @@ def get_sequence(tokenizer,tweets):
   padded=pad_sequences(sequences,truncating='post',padding='post',maxlen=maxlen)
   return padded
 
+@app.route("/")
+def home():
+   return "welcome"
 
-@app.post("/predict")
+@app.route("/predict",methods=['POST'])
 def submit():
   r=requests.json()
   text=r['tweet']
@@ -39,3 +36,6 @@ def submit():
   p=model.predict(np.expand_dims(t[0],axis=0))[0]
   pred_class=index_to_class[np.argmax(p).astype('uint8')]
   return pred_class
+
+if __name__=='main':
+  app.run()
