@@ -11,7 +11,10 @@ platformdirs==2.5.2
 six==1.16.0
 virtualenv==20.14.1
 Werkzeug==2.2.2
-pickle5
+pickle-mixin
 fastapi
 numpy
 gunicorn
+uvicorn
+requests
+tensorflow
