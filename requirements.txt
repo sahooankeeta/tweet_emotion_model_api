@@ -1,5 +1,5 @@
-pickle-mixin
 numpy
 requests
 flask
 gunicorn
+tensorflow
