@@ -1,6 +1,4 @@
 import requests
-from flask import Flask,request,render_template,json
-import trained_model as m
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
@@ -31,27 +29,13 @@ def get_sequence(tokenizer,tweets):
   sequences=tokenizer.texts_to_sequences(tweets)
   padded=pad_sequences(sequences,truncating='post',padding='post',maxlen=maxlen)
   return padded
-# app = Flask(__name__)
-
-# @app.route("/")
-# def home():
-#   return render_template("home.html")
 
 
 @app.post("/predict")
 def submit():
   r=requests.json()
-#   #r=requests.post('http://127.0.0.1:5000/test',data={'t':request.form['tweet']})
   text=r['tweet']
   t=get_sequence(tokenizer,[text])
   p=model.predict(np.expand_dims(t[0],axis=0))[0]
   pred_class=index_to_class[np.argmax(p).astype('uint8')]
   return pred_class
-#   return render_template("home.html",t=ex)
-
-# # @app.route("/test",methods=['POST'])
-# # def testing():
-# #    return request.form
-   
-# if __name__=='main':
-#   app.run()
