@@ -2,4 +2,3 @@ numpy
 requests
 flask
 gunicorn
-tensorflow.keras
