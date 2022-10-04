@@ -2,3 +2,4 @@ numpy
 requests
 flask
 gunicorn
+tensorflow-cpu
