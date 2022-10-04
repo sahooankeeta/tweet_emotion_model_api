@@ -25,5 +25,5 @@ def submit():
   pred_class=utils.index_to_class[np.argmax(p).astype('uint8')]
   return pred_class
 
-if __name__=='main':
-  app.run()
+# if __name__=='main':
+#   app.run()
