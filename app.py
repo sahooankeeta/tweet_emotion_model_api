@@ -1,5 +1,5 @@
 import requests
-from flask import Flask,json,request
+from flask import Flask,json,request,render_template
 import tensorflow as tf
 import numpy as np
 import nlp
@@ -7,15 +7,17 @@ import os.path
 from tensorflow.keras.models import load_model
 import utils
 
+
 app = Flask(__name__)
 
 model=load_model('tweet_emotion_model.h5')
 
 filename='tweet_emotion_model.h5'
 
+
 @app.route("/")
 def home():
-  return "welcome"
+  return render_template('index.html')
 
 @app.route("/predict",methods=['POST'])
 def submit():
@@ -25,5 +27,5 @@ def submit():
   pred_class=utils.index_to_class[np.argmax(p).astype('uint8')]
   return pred_class
 
-# if __name__=='main':
-#   app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
